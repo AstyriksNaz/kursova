@@ -1,0 +1,64 @@
+unit UniqueDistrictsMenu;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB, Data.Win.ADODB,
+  Vcl.Imaging.pngimage, Vcl.Imaging.jpeg, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TUniqueDistrictsForm = class(TForm)
+    ButBack: TButton;
+    ADOConnection1: TADOConnection;
+    ADOQuery1: TADOQuery;
+    BackGround: TImage;
+    DistImg: TImage;
+    ProductionImg: TImage;
+    UDBonus: TLabel;
+    UNID: TLabel;
+    DistrictBomus: TLabel;
+    UnitID: TLabel;
+    DistrictName: TLabel;
+    DistrictProduction: TLabel;
+    UnitReplaced: TLabel;
+    UDName: TLabel;
+    UDProduction: TLabel;
+    UNReplaced: TLabel;
+    ShowAllTableBut: TButton;
+    Label1: TLabel;
+    DataSource1: TDataSource;
+    DBGrid1: TDBGrid;
+    CloseTable: TButton;
+    procedure ButBackClick(Sender: TObject);
+    procedure ShowAllTableButClick(Sender: TObject);
+    procedure CloseTableClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  UniqueDistrictsForm: TUniqueDistrictsForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TUniqueDistrictsForm.ButBackClick(Sender: TObject);
+begin
+close;
+end;
+
+procedure TUniqueDistrictsForm.CloseTableClick(Sender: TObject);
+begin
+DBGrid1.Visible:= false;
+end;
+
+procedure TUniqueDistrictsForm.ShowAllTableButClick(Sender: TObject);
+begin
+DBGrid1.Visible:= true;
+end;
+
+end.

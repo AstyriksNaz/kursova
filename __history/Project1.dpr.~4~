@@ -1,0 +1,18 @@
+program Project1;
+
+uses
+  Vcl.Forms,
+  LogMenu in 'LogMenu.pas' {LogForm},
+  SecondMenu in 'SecondMenu.pas' {SecondForm},
+  LeadersMenu in 'LeadersMenu.pas' {LeadersForm};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TLogForm, LogForm);
+  Application.CreateForm(TSecondForm, SecondForm);
+  Application.CreateForm(TLeadersForm, LeadersForm);
+  Application.Run;
+end.

@@ -1,0 +1,30 @@
+unit LogMenu;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.ExtCtrls, Vcl.Imaging.jpeg;
+
+type
+  TLogForm = class(TForm)
+    Image1: TImage;
+    BitBtn1: TBitBtn;
+    Button1: TButton;
+    Label1: TLabel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  LogForm: TLogForm;
+
+implementation
+
+{$R *.dfm}
+
+end.
+

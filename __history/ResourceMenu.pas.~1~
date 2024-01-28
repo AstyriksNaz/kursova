@@ -1,0 +1,38 @@
+unit ResourceMenu;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB, Data.Win.ADODB,
+  Vcl.Imaging.jpeg, Vcl.ExtCtrls;
+
+type
+  TResourceForm = class(TForm)
+    ButBack: TButton;
+    ADOConnection1: TADOConnection;
+    ADOQuery1: TADOQuery;
+    BackGound: TImage;
+    Image1: TImage;
+    ButPrev: TButton;
+    ButNext: TButton;
+    procedure ButBackClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  ResourceForm: TResourceForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TResourceForm.ButBackClick(Sender: TObject);
+begin
+close;
+end;
+
+end.

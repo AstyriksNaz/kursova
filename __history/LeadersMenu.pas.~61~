@@ -1,0 +1,200 @@
+﻿unit LeadersMenu;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Data.Win.ADODB, Vcl.StdCtrls,
+  Vcl.Grids, Vcl.DBGrids, Vcl.ExtCtrls, Vcl.DBCtrls, Vcl.Imaging.pngimage,
+  Vcl.ComCtrls, UniqueUnitMenu, Vcl.Imaging.jpeg, UniqueDistrictsMenu;
+
+type
+  TLeadersForm = class(TForm)
+    ADOConnection1: TADOConnection;
+    ButBack: TButton;
+    DataSource1: TDataSource;
+    ADOQuery1: TADOQuery;
+    LeaderAgendaLabel: TLabel;
+    LeaderAbilityLabel: TLabel;
+    Head: TLabel;
+    LeaderLabel: TLabel;
+    EmpireLabel: TLabel;
+    UniqueDistrictLabel: TLabel;
+    UniqueUnitLabel: TLabel;
+    ButNext: TButton;
+    ButPrevious: TButton;
+    LeaderMenuImg: TImage;
+    EmpireEblImg: TImage;
+    LeadersName: TLabel;
+    ButUniqueUnit: TButton;
+    EmpireLabelShow: TLabel;
+    LeaderAgendaMemo: TDBMemo;
+    LeaderAbilityMemo: TMemo;
+    LeadersPortaitImg: TImage;
+    UniqueUnitShow: TLabel;
+    UniqueDistrictShow: TLabel;
+    HeadImg: TImage;
+    UniqueDistricBut: TButton;
+    procedure ButBackClick(Sender: TObject);
+    procedure ButNextClick(Sender: TObject);
+    procedure ButPreviousClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure ButUniqueUnitClick(Sender: TObject);
+    procedure UniqueDistricButClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  LeadersForm: TLeadersForm;
+  temp: integer;
+
+implementation
+
+{$R *.dfm}
+
+procedure TLeadersForm.ButBackClick(Sender: TObject);
+begin
+Close;
+end;
+
+procedure TLeadersForm.ButNextClick(Sender: TObject);
+begin
+  // Перевіряємо, чи є наступний запис
+  if not ADOQuery1.Eof then
+  begin
+    // Переходимо до наступного запису
+    ADOQuery1.Next;
+
+    // Перевіряємо, чи є наступний запис
+    if not ADOQuery1.Eof then
+    begin
+      temp := temp + 1;
+
+      LeadersPortaitImg.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\LeadersPortrait\' + ADOQuery1.FieldByName('ID').AsString + '.png');
+      EmpireEblImg.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\LeadersIcon\' + IntToStr(temp) + '.png');
+
+      // Очищаємо і встановлюємо значення полів
+      LeaderAbilityMemo.clear;
+      LeaderAbilityMemo.text := ADOQuery1.FieldByName('Leader_Ability').AsString;
+
+      LeaderAgendaMemo.clear;
+      LeaderAgendaMemo.text := ADOQuery1.FieldByName('Leader_Agenda').AsString;
+
+      LeadersName.Caption := ADOQuery1.FieldByName('Leader''s_Name').AsString;
+      EmpireLabelShow.Caption := ADOQuery1.FieldByName('Empire').AsString;
+
+      UniqueUnitShow.Caption := ADOQuery1.FieldByName('Unique_Units').AsString;
+      UniqueDistrictShow.Caption := ADOQuery1.FieldByName('Unique_Districts').AsString;
+    end
+    else
+    begin
+      ShowMessage('Це останній запис.');
+    end;
+  end
+  else
+  begin
+    // Обробка ситуації, коли ADOQuery1 не має даних
+    ShowMessage('Немає даних у ADOQuery1.');
+  end;
+  UniqueDistricBut.Visible := (ADOQuery1.FieldByName('Unique_Districts').AsString <> '');
+      ButUniqueUnit.Visible := (ADOQuery1.FieldByName('Unique_Units').AsString <> '');
+end;
+
+
+procedure TLeadersForm.ButPreviousClick(Sender: TObject);
+begin
+  // Перевіряємо, чи є попередній запис
+  if not ADOQuery1.Bof then
+  begin
+    // Переходимо до попереднього запису
+    ADOQuery1.Prior;
+
+    // Перевіряємо, чи є попередній запис
+    if not ADOQuery1.Bof then
+    begin
+      //картинка
+      temp := temp - 1;
+
+      LeadersPortaitImg.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\LeadersPortrait\' + IntToStr(temp) + '.png');
+      EmpireEblImg.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\LeadersIcon\' + IntToStr(temp) + '.png');
+
+      // Очищаємо і встановлюємо значення полів
+      LeaderAbilityMemo.clear;
+      LeaderAbilityMemo.text := ADOQuery1.FieldByName('Leader_Ability').AsString;
+
+      LeaderAgendaMemo.clear;
+      LeaderAgendaMemo.text := ADOQuery1.FieldByName('Leader_Agenda').AsString;
+
+      LeadersName.Caption := ADOQuery1.FieldByName('Leader''s_Name').AsString;
+      EmpireLabelShow.Caption := ADOQuery1.FieldByName('Empire').AsString;
+
+      UniqueUnitShow.Caption := ADOQuery1.FieldByName('Unique_Units').AsString;
+      UniqueDistrictShow.Caption := ADOQuery1.FieldByName('Unique_Districts').AsString;
+    end
+    else
+    begin
+      ShowMessage('Це перший запис.');
+    end;
+  end
+  else
+  begin
+    ShowMessage('Це перший запис.');
+  end;
+
+UniqueDistricBut.Visible := (ADOQuery1.FieldByName('Unique_Districts').AsString <> '');
+      ButUniqueUnit.Visible := (ADOQuery1.FieldByName('Unique_Units').AsString <> '');
+end;
+
+procedure TLeadersForm.FormCreate(Sender: TObject);
+begin
+temp := 1;
+
+      LeadersPortaitImg.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\LeadersPortrait\' + IntToStr(temp) + '.png');
+      EmpireEblImg.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\LeadersIcon\' + IntToStr(temp) + '.png');
+
+      LeaderAbilityMemo.clear;
+      LeaderAbilityMemo.text := ADOQuery1.FieldByName('Leader_Ability').AsString;
+
+      LeaderAgendaMemo.clear;
+      LeaderAgendaMemo.text := ADOQuery1.FieldByName('Leader_Agenda').AsString;
+
+      LeadersName.Caption := ADOQuery1.FieldByName('Leader''s_Name').AsString;
+      EmpireLabelShow.Caption := ADOQuery1.FieldByName('Empire').AsString;
+
+      UniqueUnitShow.Caption := ADOQuery1.FieldByName('Unique_Units').AsString;
+      UniqueDistrictShow.Caption :=  ADOQuery1.FieldByName('Unique_Districts').AsString;
+
+      UniqueDistricBut.Visible := (ADOQuery1.FieldByName('Unique_Districts').AsString <> '');
+      ButUniqueUnit.Visible := (ADOQuery1.FieldByName('Unique_Units').AsString <> '');
+end;
+
+procedure TLeadersForm.ButUniqueUnitClick(Sender: TObject);
+begin
+
+              // Створіть екземпляр форми "Лідери" і викличіть її
+  UniqueUnitMenu.UniqueUnitForm := TUniqueUnitForm.Create(Application, ADOQuery1.FieldByName('Unique_Units').AsString);
+  try
+    //UniqueUnitMenu.UniqueUnitForm.m_temp := temp;
+    UniqueUnitMenu.UniqueUnitForm.ShowModal;  // Використовуйте ShowModal, якщо вам потрібно модальне вікно
+
+  finally
+    // Важливо визвати Free, щоб уникнути витоку пам'яті
+    UniqueUnitMenu.UniqueUnitForm.Free;
+  end;
+end;
+
+procedure TLeadersForm.UniqueDistricButClick(Sender: TObject);
+begin
+     UniqueDistrictsMenu.UniqueDistrictsForm := TUniqueDistrictsForm.CreateWithTemp(Application, ADOQuery1.FieldByName('Unique_Districts').AsString);
+     try
+  UniqueDistrictsMenu.UniqueDistrictsForm.ShowModal;
+      finally
+ UniqueDistrictsMenu.UniqueDistrictsForm.free;
+     end;
+end;
+
+end.
+

@@ -1,0 +1,49 @@
+unit UniqueUnitsAllTable;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB, Vcl.Grids,
+  Vcl.DBGrids, Data.Win.ADODB;
+
+type
+  TUniqeUnitForm = class(TForm)
+    ButBack: TButton;
+    ADOConnection1: TADOConnection;
+    ADOQuery1: TADOQuery;
+    DBGrid1: TDBGrid;
+    DataSource1: TDataSource;
+    Label1: TLabel;
+    procedure ButBackClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  UniqeUnitForm: TUniqeUnitForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TUniqeUnitForm.ButBackClick(Sender: TObject);
+begin
+close;
+end;
+
+procedure TUniqeUnitForm.FormCreate(Sender: TObject);
+begin
+  DBGrid1.Columns[0].Width := 20;
+    DBGrid1.Columns[1].Width := 100;
+      DBGrid1.Columns[2].Width := 120;
+        DBGrid1.Columns[3].Width := 120;
+          DBGrid1.Columns[4].Width := 100;
+            DBGrid1.Columns[5].Width := 100;
+    DBGrid1.Columns[6].Width := 100;
+end;
+
+end.

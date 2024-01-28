@@ -1,0 +1,84 @@
+unit ResourceMenu;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB, Data.Win.ADODB,
+  Vcl.Imaging.jpeg, Vcl.ExtCtrls, Vcl.Imaging.pngimage;
+
+type
+  TResourceForm = class(TForm)
+    ButBack: TButton;
+    ADOConnection1: TADOConnection;
+    ADOQuery1: TADOQuery;
+    BackGound: TImage;
+    Image1: TImage;
+    ButPrev: TButton;
+    ButNext: TButton;
+    ResourceIDLabel: TLabel;
+    Logo: TImage;
+    ResourceID: TLabel;
+    ResourceNameLabel: TLabel;
+    ResourceName: TLabel;
+    ResourceTypeLabel: TLabel;
+    ResourceType: TLabel;
+    ResourceLocationLabel: TLabel;
+    ResourceMemoLocation: TMemo;
+    LHead2: TLabel;
+    ProductinLabel: TLabel;
+    FoodLabel: TLabel;
+    GoldLabel: TLabel;
+    CultureLabel: TLabel;
+    ScienceLabel: TLabel;
+    FaintLabel: TLabel;
+    Culture: TLabel;
+    Science: TLabel;
+    Faint: TLabel;
+    Productin: TLabel;
+    Food: TLabel;
+    Gold: TLabel;
+    LHead1: TLabel;
+    ResourceImpLabel: TLabel;
+    ResourceImp: TLabel;
+    procedure ButBackClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  ResourceForm: TResourceForm;
+  temp :integer;
+
+implementation
+
+{$R *.dfm}
+
+procedure TResourceForm.ButBackClick(Sender: TObject);
+begin
+close;
+end;
+
+procedure TResourceForm.FormCreate(Sender: TObject);
+begin
+
+Image1.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\Resources\' + IntToStr(temp) + '.png');
+ResourceID.Caption := ADOQuery1.FieldByName('ID').AsString;
+  ResourceName.Caption := ADOQuery1.FieldByName('Name').AsString;
+  ResourceType.Caption := ADOQuery1.FieldByName('Type').AsString;
+  ResourceImp.Caption := ADOQuery1.FieldByName('Improvement').AsString;
+  ResourceMemoLocation.Clear;
+  ResourceMemoLocation.Text := ADOQuery1.FieldByName('Found_in').AsString;
+  Productin.Caption := ADOQuery1.FieldByName('Bonus_production').AsString;
+  Gold.Caption := ADOQuery1.FieldByName('Bonus_gold').AsString;
+  Food.Caption := ADOQuery1.FieldByName('Bonus_food').AsString;
+  Culture.Caption := ADOQuery1.FieldByName('Bonus_culture').AsString;
+  Faint.Caption := ADOQuery1.FieldByName('Bonus_faith').AsString;
+  Science.Caption := ADOQuery1.FieldByName('Bonus_science').AsString;
+
+end;
+
+end.

@@ -1,0 +1,158 @@
+﻿unit MapMenu;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB, Data.Win.ADODB,
+  Vcl.ExtCtrls, Vcl.Imaging.jpeg, Vcl.Imaging.pngimage, MapAllTableMenu;
+
+type
+  TMapForm = class(TForm)
+    ButBack: TButton;
+    ADOConnection1: TADOConnection;
+    ADOQuery1: TADOQuery;
+    MapNameLabel: TLabel;
+    MapName: TLabel;
+    NeedMovPointLabel: TLabel;
+    MovePoint: TLabel;
+    GetFoodLabel: TLabel;
+    GetFood: TLabel;
+    GetProductionLabel: TLabel;
+    GetProduction: TLabel;
+    GetGoldLabel: TLabel;
+    GetGold: TLabel;
+    InfoLabel: TLabel;
+    MapImage: TImage;
+    ButNext: TButton;
+    ButPrev: TButton;
+    MovePointImg: TImage;
+    FoodImg: TImage;
+    ProductionImg: TImage;
+    GoldImg: TImage;
+    Background: TImage;
+    ButShowAllTable: TButton;
+    PasibilityLabel: TLabel;
+    Label1: TLabel;
+    procedure ButBackClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure ButNextClick(Sender: TObject);
+    procedure ButPrevClick(Sender: TObject);
+    procedure ButShowAllTableClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  MapForm: TMapForm;
+  temp: integer;
+
+implementation
+
+{$R *.dfm}
+
+procedure TMapForm.ButBackClick(Sender: TObject);
+begin
+close;
+end;
+
+procedure TMapForm.ButNextClick(Sender: TObject);
+begin
+  if not ADOQuery1.Eof then
+  begin
+    // Переходимо до наступного запису
+    ADOQuery1.Next;
+
+    // Перевіряємо, чи є наступний запис
+    if not ADOQuery1.Eof then
+    begin
+      temp := temp + 1;
+      MapImage.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\MapImg\' + IntToStr(temp) + '.png');
+
+      // Оновлюємо вміст міток та інших елементів за допомогою нових даних
+      MapName.Caption := ADOQuery1.FieldByName('Location''s_name').AsString;
+      MovePoint.Caption := ADOQuery1.FieldByName('Need_movement_points').AsString;
+      GetFood.Caption := ADOQuery1.FieldByName('Base_Yield_by_food').AsString;
+      GetProduction.Caption := ADOQuery1.FieldByName('Base_Yield_by_production').AsString;
+      GetGold.Caption := ADOQuery1.FieldByName('Base_Yield_by_gold').AsString;
+    end
+    else
+    begin
+      ShowMessage('Це останній запис.');
+    end;
+  end
+  else
+  begin
+    ShowMessage('Немає даних у ADOQuery1.');
+  end;
+end;
+
+procedure TMapForm.ButPrevClick(Sender: TObject);
+begin
+  // Перевіряємо, чи є попередній запис
+  if not ADOQuery1.Bof then
+  begin
+    // Переходимо до попереднього запису
+    ADOQuery1.Prior;
+
+    // Перевіряємо, чи є попередній запис
+    if not ADOQuery1.Bof then
+    begin
+      temp := temp - 1;
+      MapImage.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\MapImg\' + IntToStr(temp) + '.png');
+
+      // Оновлюємо вміст міток та інших елементів за допомогою нових даних
+      MapName.Caption := ADOQuery1.FieldByName('Location''s_name').AsString;
+      MovePoint.Caption := ADOQuery1.FieldByName('Need_movement_points').AsString;
+      GetFood.Caption := ADOQuery1.FieldByName('Base_Yield_by_food').AsString;
+      GetProduction.Caption := ADOQuery1.FieldByName('Base_Yield_by_production').AsString;
+      GetGold.Caption := ADOQuery1.FieldByName('Base_Yield_by_gold').AsString;
+    end
+    else
+    begin
+      ShowMessage('Це перший запис.');
+    end;
+  end
+  else
+  begin
+    ShowMessage('Це перший запис.');
+  end;
+end;
+
+procedure TMapForm.ButShowAllTableClick(Sender: TObject);
+begin
+// Створіть екземпляр форми "Лідери" і викличіть її
+  MapAllTableMenu.MapTableForm:= TMapTableForm.Create(Application);
+  try
+    //UniqueUnitMenu.UniqueUnitForm.m_temp := temp;
+    MapAllTableMenu.MapTableForm.ShowModal;  // Використовуйте ShowModal, якщо вам потрібно модальне вікно
+
+  finally
+    // Важливо визвати Free, щоб уникнути витоку пам'яті
+    MapAllTableMenu.MapTableForm.Free;
+    Show; // Показати поточну форму знову після закриття "Лідерів"
+  end;
+end;
+
+procedure TMapForm.FormCreate(Sender: TObject);
+var
+temp_str: string;
+begin
+
+temp := 1;
+MapImage.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\MapImg\' + IntToStr(temp) + '.png');
+
+MapName.Caption := ADOQuery1.FieldByName('Location''s_name').AsString;
+
+MovePoint.Caption := ADOQuery1.FieldByName('Need_movement_points').AsString;
+GetFood.Caption :=ADOQuery1.FieldByName('Base_Yield_by_food').AsString;
+GetProduction.Caption := ADOQuery1.FieldByName('Base_Yield_by_production').AsString;
+GetGold.Caption := ADOQuery1.FieldByName('Base_Yield_by_gold').AsString;
+
+temp_str := ADOQuery1.FieldByName('Modifier').AsString;
+
+end;
+
+end.

@@ -1,0 +1,190 @@
+﻿unit WondersMenu;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Data.Win.ADODB, Vcl.StdCtrls,
+  Vcl.ExtCtrls, Vcl.Imaging.pngimage, Vcl.Imaging.jpeg;
+
+type
+  TWonderForm = class(TForm)
+    ADOConnection1: TADOConnection;
+    WondersImage: TImage;
+    WondersIDLabel: TLabel;
+    WondersNameLabel: TLabel;
+    WondersID: TLabel;
+    WondersName: TLabel;
+    WondersLocationLabel: TLabel;
+    WondersLocation: TLabel;
+    WondersBonusLabel: TLabel;
+    WondersBonusMemo: TMemo;
+    WondersPasibilityLabel: TLabel;
+    WondersPasibility: TLabel;
+    WondersSizeLabel: TLabel;
+    WondersSize: TLabel;
+    ButBack: TButton;
+    HeadImg: TImage;
+    SecondImg: TImage;
+    ButNext: TButton;
+    ButPrev: TButton;
+    BackGround: TImage;
+    WondersPlacementMemo: TMemo;
+    WondersPlacementLabel: TLabel;
+    RadioGroup1: TRadioGroup;
+    ADOQuery1: TADOQuery;
+    procedure FormCreate(Sender: TObject);
+    procedure ButBackClick(Sender: TObject);
+    procedure ButPrevClick(Sender: TObject);
+    procedure ButNextClick(Sender: TObject);
+    procedure RadioGroup1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  WonderForm: TWonderForm;
+  temp: Integer;
+  s_temp: String;
+
+implementation
+
+{$R *.dfm}
+
+procedure TWonderForm.ButBackClick(Sender: TObject);
+begin
+close;
+end;
+
+procedure TWonderForm.ButNextClick(Sender: TObject);
+begin
+  // Перевіряємо, чи є наступний запис
+  if not ADOQuery1.Eof then
+  begin
+    // Переходимо до наступного запису
+    ADOQuery1.Next;
+
+    // Перевіряємо, чи є наступний запис
+    if not ADOQuery1.Eof then
+    begin
+      temp := temp + 1;
+      WondersImage.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\'+s_temp+'\' + IntToStr(temp) + '.png');
+
+      // Оновлюємо вміст міток та інших елементів за допомогою нових даних
+      WondersID.Caption := ADOQuery1.FieldByName('ID').AsString;
+      WondersName.Caption := ADOQuery1.FieldByName('Wonder''s_name(nature)').AsString;
+      WondersLocation.Caption := ADOQuery1.FieldByName('Location').AsString;
+      WondersBonusMemo.Clear;
+      WondersBonusMemo.Text := ADOQuery1.FieldByName('Bonus').AsString;
+      WondersSize.Caption := ADOQuery1.FieldByName('Size').AsString;
+      WondersPasibility.Caption := ADOQuery1.FieldByName('Pasibility').AsString;
+    end
+    else
+    begin
+      ShowMessage('Це останній запис.');
+    end;
+  end
+  else
+  begin
+    ShowMessage('Немає даних у ADOQuery1.');
+  end;
+end;
+
+procedure TWonderForm.ButPrevClick(Sender: TObject);
+begin
+  // Перевіряємо, чи є попередній запис
+  if not ADOQuery1.Bof then
+  begin
+    // Переходимо до попереднього запису
+    ADOQuery1.Prior;
+
+    // Перевіряємо, чи є попередній запис
+    if not ADOQuery1.Bof then
+    begin
+      temp := temp - 1;
+      WondersImage.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\'+s_temp+'\' + IntToStr(temp) + '.png');
+
+      // Оновлюємо вміст міток та інших елементів за допомогою нових даних
+      WondersID.Caption := ADOQuery1.FieldByName('ID').AsString;
+      WondersName.Caption := ADOQuery1.FieldByName('Wonder''s_name(nature)').AsString;
+      WondersLocation.Caption := ADOQuery1.FieldByName('Location').AsString;
+      WondersBonusMemo.Clear;
+      WondersBonusMemo.Text := ADOQuery1.FieldByName('Bonus').AsString;
+      WondersSize.Caption := ADOQuery1.FieldByName('Size').AsString;
+      WondersPasibility.Caption := ADOQuery1.FieldByName('Pasibility').AsString;
+    end
+    else
+    begin
+      ShowMessage('Це перший запис.');
+    end;
+  end
+  else
+  begin
+    ShowMessage('Це перший запис.');
+  end;
+end;
+
+
+
+procedure TWonderForm.FormCreate(Sender: TObject);
+begin
+temp := 1;
+s_temp := 'Wonders_of_Nature';
+WondersImage.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\'+s_temp+'\' + IntToStr(temp) + '.png');
+WondersID.Caption:= ADOQuery1.FieldByName('ID').AsString;
+WondersName.Caption := ADOQuery1.FieldByName('Wonder''s_name(nature)').AsString;
+WondersLocation.Caption := ADOQuery1.FieldByName('Location').AsString;
+WondersBonusMemo.clear;
+WondersBonusMemo.text := ADOQuery1.FieldByName('Bonus').AsString;
+WondersSize.Caption := ADOQuery1.FieldByName('Size').AsString;
+
+WondersPasibility.Caption := ADOQuery1.FieldByName('Pasibility').AsString;
+end;
+
+procedure TWonderForm.RadioGroup1Click(Sender: TObject);
+begin
+ case RadioGroup1.ItemIndex of
+    0: // Wonders_of_World
+    begin
+      s_temp := 'Wonders_of_World';
+      SecondImg.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\WorldImg.png');
+      WondersLocationLabel.Hide;
+      WondersLocation.Hide;
+      WondersPasibilityLabel.Hide;
+      WondersPasibility.Hide;
+      WondersSizeLabel.Hide;
+      WondersSize.Hide;
+
+      WondersPlacementLabel.Show;
+      WondersPlacementMemo.Show;
+      WondersBonusLabel.Top := 193;
+      WondersBonusMemo.Top := 193;
+
+      // Додайте іншу логіку для Wonders_of_World
+    end;
+
+    1: // Wonders_of_Nature
+    begin
+      s_temp := 'Wonders_of_Nature';
+      SecondImg.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\NatureImg.png');
+
+      WondersLocationLabel.Visible := True;
+      WondersLocation.Visible := True;
+      WondersPasibilityLabel.Visible := True;
+      WondersPasibility.Visible := True;
+      WondersSizeLabel.Visible := True;
+      WondersSize.Visible := True;
+
+      WondersPlacementLabel.Visible := False;
+      WondersPlacementMemo.Visible := False;
+
+      WondersBonusLabel.Top := 297;
+      WondersBonusMemo.Top := 297;
+      // Додайте іншу логіку для Wonders_of_Nature
+    end;
+  end;
+end;
+
+end.
