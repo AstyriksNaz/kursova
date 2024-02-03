@@ -17,9 +17,10 @@ object ResourceForm: TResourceForm
   TextHeight = 13
   object BackGound: TImage
     Left = 0
-    Top = 1
-    Width = 1000
-    Height = 800
+    Top = 0
+    Width = 984
+    Height = 769
+    Align = alClient
     Enabled = False
     Picture.Data = {
       0A544A504547496D616765210D0200FFD8FFEB32E04A50B80000000000000032
@@ -4225,6 +4226,9 @@ object ResourceForm: TResourceForm
       CA112E7706DD229CE187CAB9F524F07DF8A825E137C454FAF39CFE7D3F4A635D
       9116C4408C464E3BF1E94CCADD8FFFD9}
     Stretch = True
+    ExplicitTop = -7
+    ExplicitWidth = 1000
+    ExplicitHeight = 800
   end
   object ResourceImg: TImage
     Left = 376

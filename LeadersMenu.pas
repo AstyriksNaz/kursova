@@ -35,12 +35,19 @@ type
     UniqueDistrictShow: TLabel;
     HeadImg: TImage;
     UniqueDistricBut: TButton;
+    Label1: TLabel;
+    Sort: TComboBox;
+    SortAscOrDesc: TCheckBox;
+    Button1: TButton;
+    clearBut: TButton;
     procedure ButBackClick(Sender: TObject);
     procedure ButNextClick(Sender: TObject);
     procedure ButPreviousClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure ButUniqueUnitClick(Sender: TObject);
     procedure UniqueDistricButClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure clearButClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -145,9 +152,56 @@ UniqueDistricBut.Visible := (ADOQuery1.FieldByName('Unique_Districts').AsString 
       ButUniqueUnit.Visible := (ADOQuery1.FieldByName('Unique_Units').AsString <> '');
 end;
 
+procedure TLeadersForm.Button1Click(Sender: TObject);
+var
+s_sort: string;
+categoriSort: string;
+begin
+if  SortASCorDESC.Checked then
+  s_sort := 'DESC'
+else
+  s_sort := 'ASC';
+
+case Sort.ItemIndex of
+  0: categoriSort := 'ID';
+  1: categoriSort := 'Leader''s_Name';
+  2: categoriSort := 'Empire';
+  3: categoriSort := 'Leader_Ability';
+  4: categoriSort := 'Leader_Agenda';
+  5: categoriSort := 'Unique_Districts';
+  6: categoriSort := 'Unique_Units';
+else
+  categoriSort := ''; // або встановіть значення за замовчуванням
+end;
+
+  ADOQuery1.Active := false;
+  ADOQuery1.SQL.Clear;
+  ADOQuery1.SQL.Add('SELECT * FROM Leaders ORDER BY '+ categoriSort +' '+s_sort+';');
+  ADOQuery1.Active := true;
+  ADOQuery1.First;
+
+      LeadersPortaitImg.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\LeadersPortrait\' + ADOQuery1.FieldByName('ID').AsString + '.png');
+      EmpireEblImg.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\LeadersIcon\' + ADOQuery1.FieldByName('ID').AsString + '.png');
+
+      LeaderAbilityMemo.clear;
+      LeaderAbilityMemo.text := ADOQuery1.FieldByName('Leader_Ability').AsString;
+
+      LeaderAgendaMemo.clear;
+      LeaderAgendaMemo.text := ADOQuery1.FieldByName('Leader_Agenda').AsString;
+
+      LeadersName.Caption := ADOQuery1.FieldByName('Leader''s_Name').AsString;
+      EmpireLabelShow.Caption := ADOQuery1.FieldByName('Empire').AsString;
+
+      UniqueUnitShow.Caption := ADOQuery1.FieldByName('Unique_Units').AsString;
+      UniqueDistrictShow.Caption :=  ADOQuery1.FieldByName('Unique_Districts').AsString;
+
+      UniqueDistricBut.Visible := (ADOQuery1.FieldByName('Unique_Districts').AsString <> '');
+      ButUniqueUnit.Visible := (ADOQuery1.FieldByName('Unique_Units').AsString <> '');
+
+end;
+
 procedure TLeadersForm.FormCreate(Sender: TObject);
 begin
-
       LeadersPortaitImg.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\LeadersPortrait\' + ADOQuery1.FieldByName('ID').AsString + '.png');
       EmpireEblImg.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\LeadersIcon\' + ADOQuery1.FieldByName('ID').AsString + '.png');
 
@@ -170,16 +224,43 @@ end;
 procedure TLeadersForm.ButUniqueUnitClick(Sender: TObject);
 begin
 
-              // Створіть екземпляр форми "Лідери" і викличіть її
   UniqueUnitMenu.UniqueUnitForm := TUniqueUnitForm.Create(Application, ADOQuery1.FieldByName('Unique_Units').AsString);
   try
-    //UniqueUnitMenu.UniqueUnitForm.m_temp := temp;
-    UniqueUnitMenu.UniqueUnitForm.ShowModal;  // Використовуйте ShowModal, якщо вам потрібно модальне вікно
+
+    UniqueUnitMenu.UniqueUnitForm.ShowModal;
 
   finally
-    // Важливо визвати Free, щоб уникнути витоку пам'яті
     UniqueUnitMenu.UniqueUnitForm.Free;
   end;
+end;
+
+procedure TLeadersForm.clearButClick(Sender: TObject);
+begin
+  Sort.Text := 'ID';
+  ADOQuery1.Active := false;
+  ADOQuery1.SQL.Clear;
+  ADOQuery1.SQL.Add('SELECT * FROM Leaders ORDER BY ID ASC');
+  ADOQuery1.Active := true;
+  ADOQuery1.First;
+  SortASCorDESC.Checked := false;
+
+    LeadersPortaitImg.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\LeadersPortrait\' + ADOQuery1.FieldByName('ID').AsString + '.png');
+      EmpireEblImg.Picture.LoadFromFile(ExtractFilePath(Application.ExeName) + '..\..\img\LeadersIcon\' + ADOQuery1.FieldByName('ID').AsString + '.png');
+
+      LeaderAbilityMemo.clear;
+      LeaderAbilityMemo.text := ADOQuery1.FieldByName('Leader_Ability').AsString;
+
+      LeaderAgendaMemo.clear;
+      LeaderAgendaMemo.text := ADOQuery1.FieldByName('Leader_Agenda').AsString;
+
+      LeadersName.Caption := ADOQuery1.FieldByName('Leader''s_Name').AsString;
+      EmpireLabelShow.Caption := ADOQuery1.FieldByName('Empire').AsString;
+
+      UniqueUnitShow.Caption := ADOQuery1.FieldByName('Unique_Units').AsString;
+      UniqueDistrictShow.Caption :=  ADOQuery1.FieldByName('Unique_Districts').AsString;
+
+      UniqueDistricBut.Visible := (ADOQuery1.FieldByName('Unique_Districts').AsString <> '');
+      ButUniqueUnit.Visible := (ADOQuery1.FieldByName('Unique_Units').AsString <> '');
 end;
 
 procedure TLeadersForm.UniqueDistricButClick(Sender: TObject);

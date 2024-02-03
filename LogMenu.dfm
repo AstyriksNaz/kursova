@@ -19,7 +19,8 @@ object LogForm: TLogForm
     Left = 0
     Top = 0
     Width = 1000
-    Height = 800
+    Height = 771
+    Align = alClient
     Picture.Data = {
       0A544A504547496D61676599010100FFD8FFE000104A46494600010101004800
       480000FFDB00430006040506050406060506070706080A100A0A09090A140E0F
@@ -2084,6 +2085,7 @@ object LogForm: TLogForm
       AD6368D2B41ABA1C8EDBB8C618F22A6DFC9B63FC1CB4EEEB76E559812C46C6BA
       27A79D9FF2AFFFD9}
     Stretch = True
+    ExplicitHeight = 800
   end
   object Image1: TImage
     Left = 320

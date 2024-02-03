@@ -2,8 +2,8 @@ object MapForm: TMapForm
   Left = 416
   Top = 0
   Caption = 'MapForm'
-  ClientHeight = 496
-  ClientWidth = 609
+  ClientHeight = 582
+  ClientWidth = 746
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,8 +18,9 @@ object MapForm: TMapForm
   object Background: TImage
     Left = 0
     Top = 0
-    Width = 609
-    Height = 496
+    Width = 746
+    Height = 582
+    Align = alClient
     Picture.Data = {
       0A544A504547496D61676501140100FFD8FFE000104A46494600010100000100
       010000FFDB004300020101010101020101010202020202040302020202050404
@@ -2231,6 +2232,8 @@ object MapForm: TMapForm
       9CAE1E8FC9414AFA057D141414050140502BE8A057D141405014050140500500
       50052BE80028000A000000000000FFD9}
     Stretch = True
+    ExplicitWidth = 681
+    ExplicitHeight = 553
   end
   object MapNameLabel: TLabel
     Left = 24
@@ -2376,8 +2379,8 @@ object MapForm: TMapForm
     ParentFont = False
   end
   object MapImage: TImage
-    Left = 360
-    Top = 120
+    Left = 437
+    Top = 112
     Width = 241
     Height = 234
     Stretch = True
@@ -2551,7 +2554,7 @@ object MapForm: TMapForm
   end
   object GoldImg: TImage
     Left = 261
-    Top = 273
+    Top = 275
     Width = 28
     Height = 28
     Picture.Data = {
@@ -2616,9 +2619,24 @@ object MapForm: TMapForm
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Label1: TLabel
+    Left = 533
+    Top = 366
+    Width = 132
+    Height = 19
+    Caption = #1042#1080#1073#1110#1088' '#1089#1086#1088#1090#1091#1074#1072#1085#1085#1103':'
+    Color = clBlack
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clYellow
+    Font.Height = -16
+    Font.Name = 'Times New Roman'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
   object ButBack: TButton
-    Left = 278
-    Top = 440
+    Left = 302
+    Top = 491
     Width = 75
     Height = 25
     Caption = #1055#1086#1074#1077#1088#1085#1077#1085#1085#1103
@@ -2626,22 +2644,72 @@ object MapForm: TMapForm
     OnClick = ButBackClick
   end
   object ButNext: TButton
-    Left = 376
-    Top = 391
-    Width = 105
-    Height = 45
+    Left = 384
+    Top = 413
+    Width = 110
+    Height = 60
     Caption = #1053#1072#1089#1090#1091#1087#1085#1080#1081' '#1079#1072#1087#1080#1089
     TabOrder = 1
     OnClick = ButNextClick
   end
   object ButPrev: TButton
-    Left = 140
-    Top = 390
-    Width = 107
-    Height = 48
+    Left = 168
+    Top = 413
+    Width = 110
+    Height = 60
     Caption = #1055#1086#1087#1077#1088#1077#1076#1085#1110#1081' '#1079#1072#1087#1080#1089
     TabOrder = 2
     OnClick = ButPrevClick
+  end
+  object Button1: TButton
+    Left = 533
+    Top = 436
+    Width = 145
+    Height = 30
+    Caption = #1047#1072#1076#1110#1103#1090#1080' '#1089#1086#1088#1090#1091#1074#1072#1085#1085#1103
+    TabOrder = 3
+    OnClick = Button1Click
+  end
+  object clearBut: TButton
+    Left = 533
+    Top = 472
+    Width = 145
+    Height = 30
+    Caption = #1057#1082#1072#1089#1091#1074#1072#1090#1080' '#1079#1084#1110#1085#1080
+    TabOrder = 4
+    OnClick = clearButClick
+  end
+  object SortAscOrDesc: TCheckBox
+    Left = 533
+    Top = 413
+    Width = 97
+    Height = 17
+    Caption = #1047#1072' '#1089#1087#1072#1076#1072#1085#1085#1103
+    Color = clYellow
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clYellow
+    Font.Height = -16
+    Font.Name = 'Times New Roman'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 5
+  end
+  object Sort: TComboBox
+    Left = 533
+    Top = 391
+    Width = 145
+    Height = 21
+    TabOrder = 6
+    Text = 'ID'
+    Items.Strings = (
+      'ID'
+      #1053#1072#1079#1074#1072' '#1083#1086#1082#1072#1094#1110#1111
+      #1041#1072#1079#1086#1074#1080#1081' '#1073#1086#1085#1091#1089
+      #1041#1072#1079#1086#1074#1085#1080#1081' '#1073#1086#1085#1091#1089' '#1074#1080#1088#1086#1073#1085#1080#1094#1090#1074#1072
+      #1041#1072#1079#1086#1074#1080#1081' '#1073#1086#1085#1091#1089' '#1079#1086#1083#1086#1090#1072
+      #1055#1086#1090#1088#1110#1073#1085#1086' '#1086#1095#1082#1110#1074' '#1087#1077#1088#1077#1084#1110#1097#1077#1085#1085#1103
+      #1052#1086#1076#1080#1092#1110#1082#1072#1090#1086#1088)
   end
   object ADOConnection1: TADOConnection
     Connected = True

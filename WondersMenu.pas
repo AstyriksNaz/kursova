@@ -262,7 +262,7 @@ begin
       WondersPlacementMemo.Visible := False;
 
       WondersBonusLabel.Top := 350;
-      WondersBonusMemo.Top := 350;
+      WondersBonusMemo.Top := 300;
 
     end;
   end;

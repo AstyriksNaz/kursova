@@ -2,8 +2,8 @@ object DistrictForm: TDistrictForm
   Left = 420
   Top = 0
   Caption = 'DistrictForm'
-  ClientHeight = 761
-  ClientWidth = 984
+  ClientHeight = 812
+  ClientWidth = 1029
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,10 +16,11 @@ object DistrictForm: TDistrictForm
   PixelsPerInch = 96
   TextHeight = 13
   object Image1: TImage
-    Left = -8
+    Left = 0
     Top = 0
-    Width = 985
-    Height = 761
+    Width = 1029
+    Height = 812
+    Align = alClient
     Picture.Data = {
       0A544A504547496D61676593B80200FFD8FFEB32E04A50B80000000000000032
       D66A756D620000001E6A756D646332706100110010800000AA00389B71036332
@@ -5596,6 +5597,9 @@ object DistrictForm: TDistrictForm
       41A4CE714679F5A061F4A3AD1F4A4CFBD0303FAD21FD29738FFF005D349CD007
       FFD9}
     Stretch = True
+    ExplicitLeft = -8
+    ExplicitWidth = 1033
+    ExplicitHeight = 809
   end
   object DistrictImg: TImage
     Left = 390
@@ -6254,6 +6258,21 @@ object DistrictForm: TDistrictForm
       EDC47929337D08020000000049454E44AE426082}
     Stretch = True
   end
+  object Label1: TLabel
+    Left = 728
+    Top = 644
+    Width = 132
+    Height = 19
+    Caption = #1042#1080#1073#1110#1088' '#1089#1086#1088#1090#1091#1074#1072#1085#1085#1103':'
+    Color = clBlack
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clYellow
+    Font.Height = -16
+    Font.Name = 'Times New Roman'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
   object ButBack: TButton
     Left = 472
     Top = 712
@@ -6264,22 +6283,78 @@ object DistrictForm: TDistrictForm
     OnClick = ButBackClick
   end
   object ButPrev: TButton
-    Left = 267
-    Top = 628
-    Width = 101
-    Height = 41
+    Left = 270
+    Top = 644
+    Width = 110
+    Height = 60
     Caption = #1055#1086#1087#1077#1088#1077#1076#1085#1110#1081' '#1079#1072#1087#1080#1089
     TabOrder = 1
     OnClick = ButPrevClick
   end
   object ButNext: TButton
-    Left = 617
-    Top = 628
-    Width = 105
-    Height = 41
+    Left = 612
+    Top = 644
+    Width = 110
+    Height = 60
     Caption = #1053#1072#1089#1090#1091#1087#1085#1080#1081' '#1079#1072#1087#1080#1089
     TabOrder = 2
     OnClick = ButNextClick
+  end
+  object Button1: TButton
+    Left = 876
+    Top = 672
+    Width = 145
+    Height = 49
+    Caption = #1047#1072#1076#1110#1103#1090#1080' '#1089#1086#1088#1090#1091#1074#1072#1085#1085#1103
+    TabOrder = 3
+    OnClick = Button1Click
+  end
+  object clearBut: TButton
+    Left = 876
+    Top = 727
+    Width = 145
+    Height = 49
+    Caption = #1057#1082#1072#1089#1091#1074#1072#1090#1080' '#1079#1084#1110#1085#1080
+    TabOrder = 4
+    OnClick = clearButClick
+  end
+  object Sort: TComboBox
+    Left = 876
+    Top = 645
+    Width = 145
+    Height = 21
+    TabOrder = 5
+    Text = 'ID'
+    Items.Strings = (
+      'ID'
+      #1053#1072#1079#1074#1072' '#1088#1072#1081#1086#1085#1072
+      #1063#1080' '#1089#1072#1084#1086#1089#1090#1110#1081#1085#1072' '#1073#1091#1076#1110#1074#1083#1103
+      #1041#1086#1085#1091#1089
+      #1062#1110#1085#1072' '#1073#1091#1076#1110#1074#1085#1080#1094#1090#1074#1072
+      #1045#1088#1072
+      #1041#1086#1085#1091#1089' '#1111#1078#1110
+      #1041#1086#1085#1091#1089' '#1074#1080#1088#1086#1073#1085#1080#1094#1090#1074#1072
+      #1041#1086#1085#1091#1089' '#1079#1086#1083#1086#1090#1072
+      #1041#1086#1085#1091#1089' '#1082#1091#1083#1100#1090#1091#1088#1080
+      #1041#1086#1085#1091#1089' '#1074#1110#1088#1080
+      #1041#1086#1085#1091#1089' '#1085#1072#1091#1082#1080
+      #1041#1091#1076#1091#1108#1090#1100#1089#1103' '#1074)
+  end
+  object SortAscOrDesc: TCheckBox
+    Left = 728
+    Top = 669
+    Width = 97
+    Height = 17
+    Caption = #1047#1072' '#1089#1087#1072#1076#1072#1085#1085#1103
+    Color = clYellow
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clYellow
+    Font.Height = -16
+    Font.Name = 'Times New Roman'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 6
   end
   object ADOConnection1: TADOConnection
     Connected = True

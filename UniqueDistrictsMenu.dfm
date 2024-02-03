@@ -3,7 +3,7 @@ object UniqueDistrictsForm: TUniqueDistrictsForm
   Top = 0
   Caption = 'UniqueDistrictsForm'
   ClientHeight = 576
-  ClientWidth = 622
+  ClientWidth = 627
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,9 +16,10 @@ object UniqueDistrictsForm: TUniqueDistrictsForm
   TextHeight = 13
   object BackGround: TImage
     Left = 0
-    Top = -8
-    Width = 625
-    Height = 585
+    Top = 0
+    Width = 627
+    Height = 576
+    Align = alClient
     Picture.Data = {
       0A544A504547496D61676501140100FFD8FFE000104A46494600010100000100
       010000FFDB004300020101010101020101010202020202040302020202050404
@@ -2230,6 +2231,9 @@ object UniqueDistrictsForm: TUniqueDistrictsForm
       9CAE1E8FC9414AFA057D141414050140502BE8A057D141405014050140500500
       50052BE80028000A000000000000FFD9}
     Stretch = True
+    ExplicitTop = -8
+    ExplicitWidth = 625
+    ExplicitHeight = 585
   end
   object DistImg: TImage
     Left = 320

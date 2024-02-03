@@ -47,11 +47,11 @@ type
     Image5: TImage;
     Image6: TImage;
     Image7: TImage;
-    Sort: TComboBox;
     Label1: TLabel;
     Button1: TButton;
     clearBut: TButton;
     SortAscOrDesc: TCheckBox;
+    Sort: TComboBox;
     procedure ButBackClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure ButNextClick(Sender: TObject);
